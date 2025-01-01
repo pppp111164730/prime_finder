@@ -102,6 +102,33 @@ def findPrimesA(number_of_primes):#new best and the big O lost and n and gained 
         current += 2
     return primes
 
+def findPrimesP(number_of_primes):#add prealocation in this way was not good doubled the time
+    if number_of_primes == 0:
+        return []
+    primes = [0] * number_of_primes
+    primes[0] = 2
+    primes_current = 1
+    if number_of_primes == 1:
+        return primes
+    current = 3
+    x = 1
+    while primes[number_of_primes - 1] == 0:# len(primes) < number_of_primes:
+        prime = True
+        if x*x < current:
+                x += 1
+        for i in primes[:primes_current]:
+            if x < i:
+                break
+            if current % i == 0:
+                prime = False
+                break
+        if prime:
+            primes[primes_current] = current
+            primes_current += 1
+            #print(current)
+        current += 2
+    return primes
+
 def findPrimesb(number_of_primes):#old best.
     if number_of_primes == 0:
         return []
@@ -223,12 +250,13 @@ if __name__ == "__main__":
 
     print("start")
     #findPrime2_1()
-    #if findNoMod3(10000) == findPrimes(10000):
+    print(findPrimesP(10))
+    #if findPrimesA(10000) == findPrimesP(10000):
     #    print(True)
     #if findPrimes(30000) == findPrimesb(30000):
     #    print(True)
     #findNoMod(10000)
-    print(findPrimesA(1000000)[-1])
+    print(findPrimesP(10000)[5])
     #print(findNoMod(10))
     #print(findPrimes(10))
     print('done')
@@ -242,7 +270,7 @@ if __name__ == "__main__":
     print("start")
     #findPrime2_1()
     #findPrimes(30000)# estimate of 6 seconds run time
-    findPrimes(1000)
+    findPrimesA(100000)
     #findNoMod2(10000)
     print('done')
 
@@ -253,7 +281,7 @@ if __name__ == "__main__":
     start_time = time.time()
     #print(findPrimes(100000)[-1])
     #findNoMod3(10000)#estimate of 10 minutes run time
-    findPrimesb(1000)
+    findPrimesP(100000)
     print('finished')
 
     end_time = time.time()
